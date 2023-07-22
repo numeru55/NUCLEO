@@ -11,7 +11,7 @@
 #TARGET = blink_PA5
 TARGET = i2c_scan
 
-CORE = STMicroelectronics:stm32:Nucleo_64:pnum=NUCLEO_G070RB
+CORE = STMicroelectronics:stm32:Nucleo_32:pnum=NUCLEO_F303K8
 #CORE = STMicroelectronics:stm32:GenG0
 
 PORT = /dev/cu.usbmodem14103
