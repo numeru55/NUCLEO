@@ -54,6 +54,9 @@ upload: compile
 4 A3 PB1          PA10 D2 3
 5 A4 PB11          PC4 D1 2
 6 A5 PB12          PC5 D0 1
+
+PA5 - LED - GND  H:on L:off
+PC13 - SW with on board pullup   H:open L:close
 ```
 
 
