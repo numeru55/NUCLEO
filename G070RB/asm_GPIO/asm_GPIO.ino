@@ -11,10 +11,22 @@ void setup() {
   while (!Serial) {}
   Serial.println("Boot NUCLEO G070");
 
+uint64_t odr = GPIOA_BASE+0x14UL;
+uint64_t data;
+
+// asm volatile("LDR R0, [%[address]]" : : [address] "r" (address));
+
 asm volatile(
-        "eor %[odr], %[odr], #(1 << 5)"
-        : [odr] "+#"(GPIOA->ODR)
+        //"eor [%[odr1]], [%[odr2]], #32"
+        "ldr %[data], [%[odr]]\r\n"
+        //"eor %[data], #0x20\r\n"
+        "movw %[data], #0x20\r\n"
+        "str %[data], [%[odr]]\r\n"
+        : [data] "=r" (data)
+        : [odr] "r" (odr)
 );
+
+
 
 }
 
