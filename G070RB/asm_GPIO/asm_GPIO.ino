@@ -6,32 +6,44 @@
 // PC13 - SW with on board pullup   H:open L:close
 
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  while (!Serial) {}
-  Serial.println("Boot NUCLEO G070");
 
-uint64_t odr = GPIOA_BASE+0x14UL;
-uint64_t data;
+  // Serial.begin(9600);
+  // while (!Serial) {}
+  // Serial.println("Boot NUCLEO G070");
 
-// asm volatile("LDR R0, [%[address]]" : : [address] "r" (address));
-
-asm volatile(
-        //"eor [%[odr1]], [%[odr2]], #32"
-        "ldr %[data], [%[odr]]\r\n"
-        //"eor %[data], #0x20\r\n"
-        "movw %[data], #0x20\r\n"
-        "str %[data], [%[odr]]\r\n"
-        : [data] "=r" (data)
-        : [odr] "r" (odr)
-);
-
-
+  pinMode(PA5, OUTPUT);
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+
+  // Set PA5 (to H)
+
+  const uint64_t bsrr = GPIOA_BASE + 0x18UL;
+
+  asm volatile(
+    "mov r1, #(1 << 5) \r\n"
+    "str r1, [%[bsrr]] \r\n"
+    : 
+    : [bsrr] "r"(bsrr)
+    : "r1"
+    );
+
+
+  delay(1000);
+
+  // Reset PA5 (to L)
+
+  const uint64_t brr = GPIOA_BASE + 0x28UL;
+
+  asm volatile(
+    "mov r1, #(1 << 5) \r\n"
+    "str r1, [%[brr]] \r\n"
+    : 
+    : [brr] "r"(brr)
+    : "r1"
+    );
+
+  delay(200);
+
 }
-
-
