@@ -19,11 +19,12 @@ void loop() {
 
   // Set PA5 (to H)
 
-  const uint64_t bsrr = GPIOA_BASE + 0x18UL;
+  //const uint32_t bsrr = GPIOA_BASE + 0x18UL; // another way
+  const uint32_t bsrr = (uint32_t)&GPIOA->BSRR;
 
   asm volatile(
-    "mov r1, #(1 << 5) \r\n"
-    "str r1, [%[bsrr]] \r\n"
+    "MOV r1, #(1 << 5) \r\n"
+    "STR r1, [%[bsrr]] \r\n"
     : 
     : [bsrr] "r"(bsrr)
     : "r1"
@@ -34,13 +35,16 @@ void loop() {
 
   // Reset PA5 (to L)
 
-  const uint64_t brr = GPIOA_BASE + 0x28UL;
+  //const uint64_t brr = GPIOA_BASE + 0x28UL;
 
   asm volatile(
-    "mov r1, #(1 << 5) \r\n"
-    "str r1, [%[brr]] \r\n"
+    "MOV r1, #(1 << 5) \r\n"
+    //"str r1, [%[brr]] \r\n"
+    "LSL r1, #16 \r\n"        // logical shift left
+    "STR r1, [%[bsrr]] \r\n"
     : 
-    : [brr] "r"(brr)
+    //: [brr] "r"(brr)
+    : [bsrr] "r"(bsrr)
     : "r1"
     );
 

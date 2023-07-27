@@ -1,22 +1,28 @@
-// http://www.neko.ne.jp/~freewing/cpu/stm32_stm32f103c8t6_gcc_inline_assembler/
-// https://blueeyes.sakura.ne.jp/2018/01/23/825/
-
-// Nucleo 64
-// PA5 - LED - GND  H:on L:off
-// PC13 - SW with on board pullup   H:open L:close
-
 void setup() {
-  // put your setup code here, to run once:
+
   Serial.begin(9600);
   while (!Serial) {}
   Serial.println("Boot NUCLEO G070");
 
-  Serial.println(GPIOA_BASE,HEX);
+  pinMode(PC13, INPUT);
 
+  uint32_t out;
+
+  asm volatile(
+    "GPIOC_IDR = 0x50000810 \r\n" // GPIOC->IDR のアドレスになまえをつけておく
+    "LDR r1, =GPIOC_IDR \r\n"     // r1 に GPIOC->IDR のアドレスを代入
+    "LDR r1, [r1] \r\n"           // アドレス r1 の値を r1 にロード
+    "LSR r1, #13 \r\n"            // r1 を 13ビット右シフト
+    "MOV %[out], #1 \r\n"         // 0b1 と
+    "AND %[out], r1 \r\n"         // AND をとって %[out] で返す
+    : [out] "=r" (out) // 結果を収めるレジスタ
+    : 
+    : "r1"             // 使うレジスタ
+    );
+  
+  Serial.print("Result: ");
+  Serial.println(out,HEX);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 }
-
-
