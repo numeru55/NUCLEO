@@ -10,15 +10,15 @@ void setup() {
   Serial.begin(9600);
   while (!Serial) {}
   Serial.println("Boot NUCLEO G070");
-}
 
-void loop() {
   Serial.print("SysTick Address ");
   Serial.println((uint32_t)&SysTick->VAL, HEX);
   Serial.print("SysTick CTRL ");
   Serial.println((uint32_t)SysTick->CTRL, BIN);
   Serial.print("SysTick LOAD ");
-  Serial.println((uint32_t)SysTick->LOAD, BIN);
+  Serial.print((uint32_t)SysTick->LOAD, BIN);
+  Serial.print(" = ");
+  Serial.println((uint32_t)SysTick->LOAD);
   Serial.print("SysTick VAL ");
   Serial.println((uint32_t)SysTick->VAL, BIN);
 
@@ -35,6 +35,9 @@ void loop() {
 
   Serial.print(" memory ");
   Serial.println(out);
+}
 
-  delay(1000);
+void loop() {
+
+  delay(1);
 }

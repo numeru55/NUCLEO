@@ -4,7 +4,7 @@ void setup() {
   while (!Serial) {}
   Serial.println("Boot NUCLEO G070");
 
-  Serial.print("SystemCoreClock: ");
+  Serial.print("Result: ");
   Serial.println(SystemCoreClock);
 }
 
