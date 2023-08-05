@@ -67,6 +67,11 @@ PC4 D1 TX
 PC5 D0 RX
 ```
 
+# PIOでつかう
+
+- Arduino コア 特に問題なさそう。[Upload] コマンドでアップロード。モニターも普通にできる。デバッグは不可
+- STM32コアならさらにデバッグも可能。ただし，なぜか `main.cpp` ではだめで `main.c` で動かす必要がある。
+
 # STM32 hal manual
 
 https://www.st.com/resource/en/user_manual/um2319-description-of-stm32g0-hal-and-lowlayer-drivers-stmicroelectronics.pdf
