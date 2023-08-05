@@ -59,6 +59,13 @@ PA5 - LED - GND  H:on L:off
 PC13 - SW with on board pullup   H:open L:close
 ```
 
+# Serialを使う
+
+ボードの右端
+```
+PC4 D1 TX
+PC5 D0 RX
+```
 
 # Thanks to:
 
