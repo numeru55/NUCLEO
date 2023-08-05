@@ -67,6 +67,10 @@ PC4 D1 TX
 PC5 D0 RX
 ```
 
+# STM32 hal manual
+
+https://www.st.com/resource/en/user_manual/um2319-description-of-stm32g0-hal-and-lowlayer-drivers-stmicroelectronics.pdf
+
 # Thanks to:
 
 STM32duino FreeRTOS
