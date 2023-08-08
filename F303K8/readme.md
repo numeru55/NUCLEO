@@ -63,3 +63,19 @@ arduino-cli core install STMicroelectronics:stm32 --additional-urls https://gith
 ```main.c
 	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, 1); // ON
 ```
+
+- 変数にメッセージ等を書いてブレークポイントで止めて値を見ることで，UARTデバッグのかわりが十分できそう。以下で `HAL_Delay` のところで止めて変数 s の値を見ればOK
+
+```main.c
+  char *s;
+
+  while (1)
+  {
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, 1); // ON
+	  s="ON!";
+	  HAL_Delay(100);
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, 0); // OFF
+	  s="OFF!";
+	  HAL_Delay(1000);
+  }
+```
