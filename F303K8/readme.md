@@ -58,3 +58,8 @@ arduino-cli core install STMicroelectronics:stm32 --additional-urls https://gith
 # STM32Cube IDE
 
 - Win [Ctrl] + Space で候補を呼び出すことができる
+- ブレークポイントで止まるとき，止まった行の実行前になっている。たとえば以下の行で止まっていたら，PB3を1にする前で停止している。
+
+```main.c
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, 1); // ON
+```
