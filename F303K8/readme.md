@@ -53,3 +53,8 @@ Adruino STM32  Function
 ```bash
 arduino-cli core install STMicroelectronics:stm32 --additional-urls https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
 ```
+
+
+# STM32Cube IDE
+
+- Win [Ctrl] + Space で候補を呼び出すことができる
