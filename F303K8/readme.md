@@ -1,63 +1,55 @@
-2022/3の2.3.0からサポートされた。
+# User Manual
 
-# setup...
+https://www.st.com/resource/en/user_manual/um1956-stm32-nucleo32-boards-mb1180-stmicroelectronics.pdf
+
+# Pin Out
+
+VCP TX: PA2
+VCP RX PA15
+
+```
+CN3 (Left Side)
+
+Adruino STM32  Function
+  D1     PA9   USART1 TX
+  D0     PA10  USART1 RX
+  RST    NRST
+  GND    GND
+  D2     PA12
+  D3     PB0   TIM3_CH3
+  D4     PB7
+  D5     PB6   TIM16_CH1N
+  D6     PB1   TIM3_CH4
+  D7     PF0
+  D8     PF1
+  D9     PA8   TIM1_CH1
+  D10    PA11  SPI_CS || TIM1_CH4
+  D11    PB5   SPI1_MOSI || TIM17_CH1
+  D12    PB4   SPI1_MISO
+
+CN4 (Right Side)
+
+Adruino STM32  Function
+  VIN    VIN   Power Input
+  GND    GND
+  RST    NRST
+  +5V    +5V
+  A7     PA2   ADC1_IN3 connected to VCP_TX
+  A6     PA7   ADC2_IN4
+  A5     PA6   ADC2_IN3 || I2C1_SCL -SB16- PB6
+  A4     PA5   ADC2_IN2 || I2C1_SDA -SB18- PB7
+  A3     PA4   ADC2_IN1
+  A2     PA3   ADC1_IN4
+  A1     PA1   ADC1_IN2
+  A0     PA0   ADC1_IN1
+  AREF   AVDD
+  +3V3   +3V3
+  D13    PB3   SPI1_SCK connected to LD3(LED), H=ON
+```
+
+
+# Aruduino setup
 
 ```bash
 arduino-cli core install STMicroelectronics:stm32 --additional-urls https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
 ```
-
-# genetic G0 として書き込む
-
-STM32CubeProg needed.
-- https://www.stmcu.jp/design/sw_dev/pc_soft/58442/#58442_en
-
-```bash
-arduino-cli compile --fqbn STMicroelectronics:stm32:GenG0 hello
-arduino-cli upload -p /dev/cu.usbmodem14103 --fqbn STMicroelectronics:stm32:GenG0 hello
-arduino-cli monitor -p /dev/cu.usbmodem14103
-```
-
-# Nucleoとして書き込む
-
-Mass Storageにコピーされる。
-
-```Makefile
-TARGET = blink_PA5
-CORE = STMicroelectronics:stm32:Nucleo_64:pnum=NUCLEO_G070RB
-
-compile:
-        arduino-cli compile --fqbn ${CORE} ${TARGET}
-
-upload: compile
-        arduino-cli upload --fqbn ${CORE} ${TARGET}
-```
-
-# arduino pinout
-
-```
-                  PB8 D15 10 = SCL
-                  PB9 D14 9  = SDA
-                  AVD AVD 8
-                  GND GND 7
-1 NC              PA5 D13 6
-2 IOREF           PA6 D12 5
-3 NRST            PA7 D11 4
-4 3V3             PB0 D10 3
-5 5V               PC7 D9 2
-6 GND              PA9 D8 1
-7 GND
-8 VIN              PA8 D7 8
-                  PB14 D6 7
-1 A0 PA0           PB4 D5 6
-2 A1 PA1           PB5 D4 5
-3 A2 PA4           PB3 D3 4
-4 A3 PB1          PA10 D2 3
-5 A4 PB11          PC4 D1 2
-6 A5 PB12          PC5 D0 1
-```
-
-
-# Thanks to:
-
-STM32duino FreeRTOS
-https://github.com/stm32duino/STM32FreeRTOS
