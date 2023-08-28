@@ -38,7 +38,8 @@ framework = spl
 #define LED_GPIO_PINS  (GPIO_PIN_5)
 ```
 
-コマンドパレット - build は問題なく終了
+コマンドパレット - run でおうちの mac と会社の Win で実行できた。
+
 
 # STM8CubeMX
 
