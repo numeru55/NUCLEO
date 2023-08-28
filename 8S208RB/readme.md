@@ -8,8 +8,7 @@ User button PE4 close:L open:H onboard pull-up
 
 User LED PC5 on:H off:L
 
-VCP RX - PA4
-VCP TX - PA5
+- VCP RX - PA4, TX - PA5 as UART1
 
 PD1 - SWIM
 
@@ -38,7 +37,8 @@ framework = spl
 #define LED_GPIO_PINS  (GPIO_PIN_5)
 ```
 
-コマンドパレット - build は問題なく終了
+コマンドパレット - run でおうちの mac と会社の Win で実行できた。
+
 
 Mac アップロードもOK -v で確認した結果
 
