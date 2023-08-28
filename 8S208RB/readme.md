@@ -8,8 +8,7 @@ User button PE4 close:L open:H onboard pull-up
 
 User LED PC5 on:H off:L
 
-VCP RX - PA4
-VCP TX - PA5
+- VCP RX - PA4, TX - PA5 as UART1
 
 PD1 - SWIM
 
