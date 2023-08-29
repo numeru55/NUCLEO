@@ -50,6 +50,13 @@ Mac アップロードもOK -v で確認した結果
 
 https://community.platformio.org/t/debug-support-with-stm8-s103f3p6-having-external-st-link-debugger/18563/3
 
+
+# sdccをVSCODEでコンパイルする
+
+参考にならないか
+
+http://kyoro205.blog.fc2.com/blog-entry-663.html
+
 # STM8CubeMX
 
 - JREをインストール
