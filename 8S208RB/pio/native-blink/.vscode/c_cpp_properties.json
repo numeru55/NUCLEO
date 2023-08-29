@@ -1,0 +1,42 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/Users/numeru55/Documents/PlatformIO/Projects/native-blink/include",
+                "/Users/numeru55/Documents/PlatformIO/Projects/native-blink/src",
+                "/Users/numeru55/Documents/PlatformIO/Projects/native-blink/.pio/libdeps/nucleo_8s208rb/STM8_headers",
+                "/Users/numeru55/Documents/PlatformIO/Projects/native-blink/.pio/libdeps/nucleo_8s208rb/STM8_headers/include",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/Users/numeru55/Documents/PlatformIO/Projects/native-blink/include",
+                    "/Users/numeru55/Documents/PlatformIO/Projects/native-blink/src",
+                    "/Users/numeru55/Documents/PlatformIO/Projects/native-blink/.pio/libdeps/nucleo_8s208rb/STM8_headers",
+                    "/Users/numeru55/Documents/PlatformIO/Projects/native-blink/.pio/libdeps/nucleo_8s208rb/STM8_headers/include",
+                    ""
+                ]
+            },
+            "defines": [
+                "F_CPU=16000000L",
+                "PLATFORMIO=60110",
+                "STM8S_NUCLEO_208RB",
+                "STM8S208",
+                ""
+            ],
+            "compilerPath": "/Users/numeru55/.platformio/packages/toolchain-sdcc/bin/sdcc",
+            "compilerArgs": [
+                "-mstm8",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}

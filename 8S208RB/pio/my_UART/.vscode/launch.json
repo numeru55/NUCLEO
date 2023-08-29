@@ -1,0 +1,47 @@
+// AUTOMATICALLY GENERATED FILE. PLEASE DO NOT MODIFY IT MANUALLY
+//
+// PIO Unified Debugger
+//
+// Documentation: https://docs.platformio.org/page/plus/debugging.html
+// Configuration: https://docs.platformio.org/page/projectconf/section_env_debug.html
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug",
+            "executable": "/Users/numeru55/Documents/PlatformIO/Projects/my_UART/.pio/build/nucleo_8s208rb/firmware.elf",
+            "projectEnvName": "nucleo_8s208rb",
+            "toolchainBinDir": "/Users/numeru55/.platformio/packages/tool-stm8binutils/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "/Users/numeru55/.platformio/platforms/ststm8/misc/svd/STM8S208RB.svd",
+            "preLaunchTask": {
+                "type": "PlatformIO",
+                "task": "Pre-Debug"
+            }
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (skip Pre-Debug)",
+            "executable": "/Users/numeru55/Documents/PlatformIO/Projects/my_UART/.pio/build/nucleo_8s208rb/firmware.elf",
+            "projectEnvName": "nucleo_8s208rb",
+            "toolchainBinDir": "/Users/numeru55/.platformio/packages/tool-stm8binutils/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "/Users/numeru55/.platformio/platforms/ststm8/misc/svd/STM8S208RB.svd"
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (without uploading)",
+            "executable": "/Users/numeru55/Documents/PlatformIO/Projects/my_UART/.pio/build/nucleo_8s208rb/firmware.elf",
+            "projectEnvName": "nucleo_8s208rb",
+            "toolchainBinDir": "/Users/numeru55/.platformio/packages/tool-stm8binutils/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "svdPath": "/Users/numeru55/.platformio/platforms/ststm8/misc/svd/STM8S208RB.svd",
+            "loadMode": "manual"
+        }
+    ]
+}
