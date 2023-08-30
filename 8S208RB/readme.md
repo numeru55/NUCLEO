@@ -46,6 +46,13 @@ Mac アップロードもOK -v で確認した結果
 "stm8flash" -c stlinkv21 -p stm8s208?b -s flash -w .pio/build/nucleo_8s208rb/firmware.hex
 ```
 
+Win 
+
+```ps1
+"stm8flash" -c stlinkv21 -p stm8s208?b -s flash -w .pio\build\nucleo_8s208rb\firmware.hex
+D
+```
+
 デバッグはいまだできない
 
 https://community.platformio.org/t/debug-support-with-stm8-s103f3p6-having-external-st-link-debugger/18563/3
