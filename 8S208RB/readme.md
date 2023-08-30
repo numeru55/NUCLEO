@@ -68,3 +68,8 @@ http://kyoro205.blog.fc2.com/blog-entry-663.html
 
 - JREをインストール
 - アプリをダウンロードして，terminal上で展開し，`sudo ./SetupSTM8CubeMX-1_5_0_macos` でセットアップする。
+
+
+# TIM1 One Shot reference
+
+http://www.emcu.it/STM8/STM8-Discovery/Tim1eTim4/TIM1eTIM4.html
