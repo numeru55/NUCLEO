@@ -73,3 +73,5 @@ http://kyoro205.blog.fc2.com/blog-entry-663.html
 # TIM1 One Shot reference
 
 http://www.emcu.it/STM8/STM8-Discovery/Tim1eTim4/TIM1eTIM4.html
+
+https://embedded-lab.com/blog/continuing-stm8-microcontroller-expedition/5/
