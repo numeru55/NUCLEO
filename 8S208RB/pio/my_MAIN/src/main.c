@@ -1,7 +1,9 @@
 /*
 
 from
-~/.platformio/platforms/ststm8/examples/spl-uart-simple-printf
+http://stm8sdatasheet.web.fc2.com/STVD-project06-TIMER-PWM/STM8S-TIMER-PWM.html
+
+http://stm8sdatasheet.web.fc2.com/STVD-project09-TIMER-ONESHOT/STM8S-TIMER-ONE-SHOT.html
 
 */
 
@@ -32,51 +34,75 @@ void main(void)
 
   GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST);
 
-  printf("TIM1 example\n");
+  //delay_ms(5000);
 
-  TIM1_DeInit();
+  //printf("Start 100\n");
+  //delay_ms(100);
 
-  // TIM1_SelectOnePulseMode(TIM1_OPMODE_SINGLE);
+  printf("Start 1000\n");
+  delay_ms(1000);
 
-  TIM1_TimeBaseInit(
-    //15999, // prescaler 0 ... 65535
-    3000,
-    TIM1_COUNTERMODE_UP, 
-    1000,  // period to ARRH/ARRL default
-    0);
+  //printf("Start 5000\n");
+  //delay_ms(5000);
 
+  //printf("Start 10000\n");
+  //delay_ms(10000);
 
-  TIM1_ITConfig(TIM1_IT_UPDATE, ENABLE);
-
-
-  uint16_t ms=65535;
-
-  TIM1->ARRH = (uint8_t)(ms >> 8);
-  TIM1->ARRL = (uint8_t)(ms);
-
-  //TIM1->CR1 = TIM1->CR1 & 0b11111110;
-
-
-  TIM1->SR1 = TIM1->SR1 & 0b11111110;
-  printf("%2x %2x %d\r\n",TIM1->CNTRH, TIM1->CNTRL, TIM1->SR1 & 1);
-  TIM1_ClearFlag(TIM1_FLAG_UPDATE); // 再スタート
-  printf("%2x %2x %d\r\n",TIM1->CNTRH, TIM1->CNTRL, TIM1->SR1 & 1);
-  
-  TIM1->CR1 = TIM1->CR1 | 1;
-  printf("Started\n");
-  //TIM1_Cmd(ENABLE);
-
-  //while( TIM1->CR1 & 1 ) {} // loop while CEN=1
-
-  //printf("TIM1 end\n");
+  printf("end\n");
 
   while (1)
   {
-    printf("%2x %2x %d\r\n",TIM1->CNTRH, TIM1->CNTRL, TIM1->SR1 & 1);
-    for (uint32_t i=0; i<1000000L; i++) {}
   }
 }
 
+void delay_ms(uint16_t ms)
+{
+
+  TIM1_DeInit();
+
+  TIM1_TimeBaseInit(
+      //15999, // prescaler 0 ... 65535
+      1599,
+      TIM1_COUNTERMODE_DOWN,
+      ms, // period
+      0);
+
+  //TIM1_ITConfig(TIM1_IT_UPDATE, ENABLE);
+
+  TIM1_SelectOnePulseMode(TIM1_OPMODE_SINGLE);
+  TIM1_OC1Init(
+    TIM1_OCMODE_PWM2, 
+    TIM1_OUTPUTSTATE_ENABLE, // for CH1 PC1
+    TIM1_OUTPUTNSTATE_ENABLE, // for CH1N?
+    300, 
+    TIM1_OCPOLARITY_HIGH, 
+    TIM1_OCNPOLARITY_HIGH, 
+    TIM1_OCIDLESTATE_RESET, 
+    TIM1_OCNIDLESTATE_SET
+    ); // TIM1_CH1 output port
+
+  TIM1_CtrlPWMOutputs(ENABLE); // for debug
+
+  // start TIM1
+
+  TIM1_Cmd(ENABLE);
+  TIM1->CR1 |= TIM1_CR1_CEN;
+
+  GPIO_WriteHigh(GPIOC, GPIO_PIN_5); // for debug
+
+  while (TIM1->CR1 & TIM1_CR1_CEN)
+  {
+#if 0 // for debug
+    printf("%2x %2x %d %d\r\n",
+      TIM1->CNTRH, TIM1->CNTRL,
+      TIM1->CR1 & TIM1_CR1_CEN,
+      TIM1->SR1 & TIM1_SR1_UIF);
+    for (uint32_t i=0; i<1000000L; i++) {}
+#endif
+  }
+
+  GPIO_WriteLow(GPIOC, GPIO_PIN_5); // for debug
+}
 
 /**
  * @brief Retargets the C library printf function to the UART.
