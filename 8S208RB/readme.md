@@ -12,6 +12,25 @@ User LED PC5 on:H off:L
 
 PD1 - SWIM
 
+```
+1 NC
+2 IOREF
+3 NRST
+4 3V3
+5 5V
+6 GND
+7 GND
+8 VIN
+
+1 PB5(A0) AIN5 I2C_SDA
+2 PB4(A1) AIN4 I2C_SCL
+3 PB3(A2) AIN3 TIM1_ETR
+4 PB2(A3) AIN2 TIM1_CH3N
+5 PB1/PE2(A4) AIN1 TIM1_CH2N / I2C_SDA
+6 PB0/PE1(A5) AIN0 TIM1_CH1N / I2C_SCL
+```
+
+
 # platformio
 
 https://docs.platformio.org/en/latest/boards/ststm8/nucleo_8s208rb.html
