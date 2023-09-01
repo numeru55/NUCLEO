@@ -107,3 +107,9 @@ http://kyoro205.blog.fc2.com/blog-entry-663.html
 http://www.emcu.it/STM8/STM8-Discovery/Tim1eTim4/TIM1eTIM4.html
 
 https://embedded-lab.com/blog/continuing-stm8-microcontroller-expedition/5/
+
+# PWM
+
+CH1Nに出すためにはオプションバイトの設定が必要だと
+
+http://stm8sdatasheet.web.fc2.com/STVD-project06-TIMER-PWM/STM8S-TIMER-PWM.html
