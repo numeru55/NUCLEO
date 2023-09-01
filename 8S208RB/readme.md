@@ -12,7 +12,7 @@ User LED PC5 on:H off:L
 
 PD1 - SWIM
 
-```
+```LEFT
 1 NC
 2 IOREF
 3 NRST
@@ -22,14 +22,38 @@ PD1 - SWIM
 7 GND
 8 VIN
 
-1 PB5(A0) AIN5 I2C_SDA
-2 PB4(A1) AIN4 I2C_SCL
-3 PB3(A2) AIN3 TIM1_ETR
-4 PB2(A3) AIN2 TIM1_CH3N
-5 PB1/PE2(A4) AIN1 TIM1_CH2N / I2C_SDA
-6 PB0/PE1(A5) AIN0 TIM1_CH1N / I2C_SCL
+1 PB5(A0) AIN5 (alt)I2C_SDA
+2 PB4(A1) AIN4 (alt)I2C_SCL
+3 PB3(A2) AIN3 (alt)TIM1_ETR
+4 PB2(A3) AIN2 (alt)TIM1_CH3N
+5 PB1(A4) AIN1 (alt)TIM1_CH2N / (SB)PE2 I2C_SDA
+6 PB0(A5) AIN0 (alt)TIM1_CH1N / (SB)PE1 I2C_SCL
+
+(alt) needs to change option byte
+(SB) needs to change SB setting
 ```
 
+```RIGHT
+10 PE1(D15) I2C_SCL
+ 9 PE2(D14) I2C_SDA
+ 8 VREF
+ 7 GND
+ 6 PC5(D13) SPI1_SCK
+ 5 PC7(D12) SPI1_MISO
+ 4 PC6(D11) SPI1_MOSI
+ 3 PE5(D10) SPI1_NSS
+ 2 PC4(D9)  TIM1_CH4
+ 1 PD3(D8)  TIM2_CH2
+
+ 8 PD1(D7)  SWIM
+ 7 PC3(D6)  TIM1_CH3
+ 6 PC2(D5)  TIM1_CH2
+ 5 PG0(D4)  CAN_TX
+ 4 PC1(D3)  TIM1_CH1
+ 3 PE0(D2)  CLK_CCO
+ 2 PD5(D1)  UART3_TX
+ 1 PD6(D0)  UART3_RX
+```
 
 # platformio
 
@@ -94,3 +118,9 @@ http://kyoro205.blog.fc2.com/blog-entry-663.html
 http://www.emcu.it/STM8/STM8-Discovery/Tim1eTim4/TIM1eTIM4.html
 
 https://embedded-lab.com/blog/continuing-stm8-microcontroller-expedition/5/
+
+# PWM
+
+CH1Nに出すためにはオプションバイトの設定が必要だと
+
+http://stm8sdatasheet.web.fc2.com/STVD-project06-TIMER-PWM/STM8S-TIMER-PWM.html
