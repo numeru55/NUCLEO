@@ -12,7 +12,7 @@ User LED PC5 on:H off:L
 
 PD1 - SWIM
 
-```
+```LEFT
 1 NC
 2 IOREF
 3 NRST
@@ -30,6 +30,19 @@ PD1 - SWIM
 6 PB0/PE1(A5) AIN0 TIM1_CH1N / I2C_SCL
 ```
 
+```RIGHT
+10 PE1
+ 9 PE2
+
+ 1
+
+ 8
+ 7
+ 6 TIM1_CH2
+ 5
+ 4 TIM1_CH1
+
+```
 
 # platformio
 
