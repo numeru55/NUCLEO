@@ -49,46 +49,56 @@ void main(void)
       UART1_MODE_TXRX_ENABLE);
 
   GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST);
-
   GPIO_WriteLow(GPIOC, GPIO_PIN_5); // for debug
 
   TIM1_DeInit();
 
-  // 最小値は，Peiod >= 1 OC1で指定する値 1 のようだ。
-  // 周波数は f / (prescaler + 1) / (arr + 1)
-
   TIM1_TimeBaseInit(
-      //15999, // prescaler 0 ... 65535
-      15999,
-      TIM1_COUNTERMODE_UP,
-      1, // period
+      15999, // prescaler 0 ... 65535
+      TIM1_COUNTERMODE_DOWN,
+      100, // period
       0);
 
+  // TIM1_ITConfig(TIM1_IT_UPDATE, ENABLE);
+
+  TIM1_SelectOnePulseMode(TIM1_OPMODE_SINGLE);
   TIM1_OC1Init(
-    TIM1_OCMODE_PWM1, // count up -> down
-    TIM1_OUTPUTSTATE_ENABLE, // for CH1 PC1
-    TIM1_OUTPUTNSTATE_DISABLE, // for CH1N need to change option byte
-    1, // must be less than period
-    TIM1_OCPOLARITY_HIGH,  // for CH1
-    TIM1_OCNPOLARITY_HIGH, // for CH1N
-    TIM1_OCIDLESTATE_SET,  // for CH1
-    TIM1_OCNIDLESTATE_SET  // for CH1N
-    );
+      TIM1_OCMODE_PWM2,
+      TIM1_OUTPUTSTATE_ENABLE,   // for CH1 PC1
+      TIM1_OUTPUTNSTATE_DISABLE, // for CH1N need to change option byte
+      80,                        // must be less than period
+      TIM1_OCPOLARITY_LOW,
+      TIM1_OCNPOLARITY_HIGH,
+      TIM1_OCIDLESTATE_RESET,
+      TIM1_OCNIDLESTATE_SET); // TIM1_CH1 output port
 
   TIM1_CtrlPWMOutputs(ENABLE);
 
   // start TIM1
 
   TIM1_Cmd(ENABLE);
-  //TIM1->CR1 |= TIM1_CR1_CEN;
+  for (int i = 0; i < 2; i++)
+  {
 
-  GPIO_WriteHigh(GPIOC, GPIO_PIN_5); // for debug
+    TIM1->CR1 |= TIM1_CR1_CEN;
+
+    GPIO_WriteHigh(GPIOC, GPIO_PIN_5); // for debug
+
+    while (TIM1->CR1 & TIM1_CR1_CEN)
+    {
+    }
+
+    GPIO_WriteLow(GPIOC, GPIO_PIN_5); // for debug
+
+    for (int j = 0; j < 28000; j++)
+    {
+    } // wait for a while
+  }
 
   while (1)
   {
   }
 }
-
 
 /**
  * @brief Retargets the C library printf function to the UART.

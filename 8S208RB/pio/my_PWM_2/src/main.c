@@ -54,9 +54,6 @@ void main(void)
 
   TIM1_DeInit();
 
-  // 最小値は，Peiod >= 1 OC1で指定する値 1 のようだ。
-  // 周波数は f / (prescaler + 1) / (arr + 1)
-
   TIM1_TimeBaseInit(
       //15999, // prescaler 0 ... 65535
       15999,
