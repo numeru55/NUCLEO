@@ -52,32 +52,20 @@ void main(void)
 
   GPIO_WriteLow(GPIOC, GPIO_PIN_5); // for debug
 
-  TIM1_DeInit();
-
-  TIM1_TimeBaseInit(
-      //15999, // prescaler 0 ... 65535
-      15999,
-      TIM1_COUNTERMODE_UP,
-      1, // period
-      0);
-
-  TIM1_OC1Init(
-    TIM1_OCMODE_PWM1, // count up -> down
-    TIM1_OUTPUTSTATE_ENABLE, // for CH1 PC1
-    TIM1_OUTPUTNSTATE_DISABLE, // for CH1N need to change option byte
-    1, // must be less than period
-    TIM1_OCPOLARITY_HIGH,  // for CH1
-    TIM1_OCNPOLARITY_HIGH, // for CH1N
-    TIM1_OCIDLESTATE_SET,  // for CH1
-    TIM1_OCNIDLESTATE_SET  // for CH1N
+  TIM2_DeInit();
+  TIM2_TimeBaseInit( // 16MHz / 1 / (15999+1) = 1kHz
+    TIM2_PRESCALER_1, 
+    15999
     );
-
-  TIM1_CtrlPWMOutputs(ENABLE);
-
-  // start TIM1
-
-  TIM1_Cmd(ENABLE);
-  //TIM1->CR1 |= TIM1_CR1_CEN;
+  //TIM2_OC1Init(TIM2_OCMODE_PWM1, TIM2_OUTPUTSTATE_ENABLE, 4800, TIM2_OCPOLARITY_HIGH); // output TIM2_CH1 PD4
+  TIM2_OC2Init(  // for TIM2_CH2 PD3
+    TIM2_OCMODE_PWM1, 
+    TIM2_OUTPUTSTATE_ENABLE, 
+    4800, // 4800 / (15999+1) = 30%
+    TIM2_OCPOLARITY_HIGH
+    );
+  TIM2_Cmd(ENABLE);
+  TIM2->CR1 |= TIM2_CR1_CEN;
 
   GPIO_WriteHigh(GPIOC, GPIO_PIN_5); // for debug
 
