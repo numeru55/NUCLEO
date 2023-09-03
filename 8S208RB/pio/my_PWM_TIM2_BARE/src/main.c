@@ -1,9 +1,8 @@
 /*
 
 from
-http://stm8sdatasheet.web.fc2.com/STVD-project06-TIMER-PWM/STM8S-TIMER-PWM.html
 
-http://stm8sdatasheet.web.fc2.com/STVD-project09-TIMER-ONESHOT/STM8S-TIMER-ONE-SHOT.html
+https://gist.github.com/stecman/f748abea0332be1e41640fd25b5ca861
 
 10 PE1(D15) I2C_SCL
  9 PE2(D14) I2C_SDA
@@ -34,84 +33,26 @@ http://stm8sdatasheet.web.fc2.com/STVD-project09-TIMER-ONESHOT/STM8S-TIMER-ONE-S
 #define PUTCHAR_PROTOTYPE int putchar(int c)
 #define GETCHAR_PROTOTYPE int getchar(void)
 
-
 void main(void)
 {
 
   CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1); // 16MHz / 1 = 16MHz
 
-  GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST);
+  TIM2->PSCR = TIM2_PRESCALER_16;
 
-  GPIO_WriteHigh(GPIOC, GPIO_PIN_5);
-  for(int i=0; i<10000; i++) {}
-  GPIO_WriteLow(GPIOC, GPIO_PIN_5);
+  const uint16_t tim2_auto_reload = 999;
+  TIM2->ARRH = (tim2_auto_reload >> 8);
+  TIM2->ARRL = (tim2_auto_reload & 0xFF);
 
-  UART1_DeInit();
-  UART1_Init(
-      (uint32_t)9600,
-      UART1_WORDLENGTH_8D,
-      UART1_STOPBITS_1,
-      UART1_PARITY_NO,
-      UART1_SYNCMODE_CLOCK_DISABLE,
-      UART1_MODE_TXRX_ENABLE);
+  const uint16_t tim2_compare_reg1 = 300;
+  TIM2->CCR2H = (tim2_compare_reg1 >> 8);
+  TIM2->CCR2L = (tim2_compare_reg1 & 0xFF);
 
-  // GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST);
+  TIM2->CCER1 = TIM2_CCER1_CC2E; // Enable compare channel 2 output
+  TIM2->CCMR2 = TIM2_OCMODE_PWM1;
 
-  // GPIO_WriteLow(GPIOC, GPIO_PIN_5); // for debug
-
-  // TIM2 setup
-
-  TIM2_DeInit();
-  TIM2_TimeBaseInit( // 16MHz / 16 / (39+1) = 25kHz
-    TIM2_PRESCALER_16, 
-    39
-    );
-
-  TIM2_OC2Init(  // for TIM2_CH2 PD3
-    TIM2_OCMODE_PWM1, 
-    TIM2_OUTPUTSTATE_ENABLE, 
-    12, // 5 / (19+1) = 25%
-    TIM2_OCPOLARITY_HIGH
-    );
-  TIM2_Cmd(ENABLE);
-  TIM2->CR1 |= TIM2_CR1_CEN; // start TIM2 PWM
-
-  printf("TIM2 PWM started\n");
-
-  // TIM4 setup 100kHz
-
-  buffer_count=128;
-
-  TIM4_DeInit();
-  TIM4_TimeBaseInit( // 16MHz / 16 / (3+1) = 250kHz
-    TIM4_PRESCALER_16,
-    3
-    //TIM4_PRESCALER_128,
-    //1
-  ); 
-  TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
-  TIM4_Cmd(ENABLE);
-
-  enableInterrupts();
-
-  printf("TIM4 ready for sample\n");
-
-  buffer_count=0; // start sampling
-
-  while( buffer_count<128 )
-  {
-    //nop(); nop(); nop(); nop(); nop();
-    //printf("%d\n", buffer_count);
-    GPIO_WriteReverse(GPIOC,GPIO_PIN_5);
-  } // wait end of sampling
-
-  printf("TIM4 finished sample\n");
-
-  for (int i=0; i<128; i++) {
-    printf("%d",(buffer[i]>>3) & 1);
-    //printf("%2x\n",buffer[i]);
-  }
-  printf("\n");
+  TIM2->EGR |= TIM2_EGR_UG; // Generate an update event to register new settings
+  TIM2->CR1 = TIM2_CR1_CEN; // Enable the counter
 
   while (1)
   {
