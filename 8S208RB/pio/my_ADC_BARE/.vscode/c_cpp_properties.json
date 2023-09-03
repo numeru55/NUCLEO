@@ -1,0 +1,42 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_ADC/include",
+                "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_ADC/src",
+                "/Users/numeru55/.platformio/packages/framework-ststm8spl/Libraries/STM8S_StdPeriph_Driver/inc",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_ADC/include",
+                    "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_ADC/src",
+                    "/Users/numeru55/.platformio/packages/framework-ststm8spl/Libraries/STM8S_StdPeriph_Driver/inc",
+                    ""
+                ]
+            },
+            "defines": [
+                "F_CPU=16000000L",
+                "PLATFORMIO=60111",
+                "STM8S_NUCLEO_208RB",
+                "STM8S208",
+                "USE_STDPERIPH_DRIVER",
+                "USE_STDINT",
+                ""
+            ],
+            "compilerPath": "/Users/numeru55/.platformio/packages/toolchain-sdcc/bin/sdcc",
+            "compilerArgs": [
+                "-mstm8",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
