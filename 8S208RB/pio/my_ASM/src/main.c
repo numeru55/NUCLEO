@@ -1,12 +1,3 @@
-/*
-
-from
-http://stm8sdatasheet.web.fc2.com/STVD-project06-TIMER-PWM/STM8S-TIMER-PWM.html
-
-http://stm8sdatasheet.web.fc2.com/STVD-project09-TIMER-ONESHOT/STM8S-TIMER-ONE-SHOT.html
-
-*/
-
 #include "stm8s_conf.h"
 #include "stm8s_it.h" /* SDCC patch: required by SDCC for interrupts */
 #include "stdio.h"
@@ -14,9 +5,10 @@ http://stm8sdatasheet.web.fc2.com/STVD-project09-TIMER-ONESHOT/STM8S-TIMER-ONE-S
 #define PUTCHAR_PROTOTYPE int putchar(int c)
 #define GETCHAR_PROTOTYPE int getchar(void)
 
-void delay_ms(uint16_t ms);
-
-uint32_t ticks_ms = 0;
+#define MY_DELAY                         \
+  for (uint32_t i = 0; i < 1000000; i++) \
+  {                                      \
+  }
 
 void main(void)
 {
@@ -34,74 +26,23 @@ void main(void)
 
   GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST);
 
-  //delay_ms(5000);
-
-  //printf("Start 100\n");
-  //delay_ms(100);
-
-  printf("Start 1000\n");
-  delay_ms(1000);
-
-  //printf("Start 5000\n");
-  //delay_ms(5000);
-
-  //printf("Start 10000\n");
-  //delay_ms(10000);
-
-  printf("end\n");
+  __IO uint8_t data=0;
 
   while (1)
   {
+    printf("Hello STM8S\n");
+    MY_DELAY;
+    disableInterrupts();
+    (void) data;
+    __asm
+        inc (1, sp)
+        ;ret // 不要だった
+    __endasm;
+    enableInterrupts();
+    //disableInterrupts();
+    printf("data %d\n", data);
+    MY_DELAY;
   }
-}
-
-void delay_ms(uint16_t ms)
-{
-
-  TIM1_DeInit();
-
-  TIM1_TimeBaseInit(
-      //15999, // prescaler 0 ... 65535
-      1599,
-      TIM1_COUNTERMODE_DOWN,
-      ms, // period
-      0);
-
-  //TIM1_ITConfig(TIM1_IT_UPDATE, ENABLE);
-
-  TIM1_SelectOnePulseMode(TIM1_OPMODE_SINGLE);
-  TIM1_OC1Init(
-    TIM1_OCMODE_PWM2, 
-    TIM1_OUTPUTSTATE_ENABLE, // for CH1 PC1
-    TIM1_OUTPUTNSTATE_ENABLE, // for CH1N?
-    300, 
-    TIM1_OCPOLARITY_HIGH, 
-    TIM1_OCNPOLARITY_HIGH, 
-    TIM1_OCIDLESTATE_RESET, 
-    TIM1_OCNIDLESTATE_SET
-    ); // TIM1_CH1 output port
-
-  TIM1_CtrlPWMOutputs(ENABLE); // for debug
-
-  // start TIM1
-
-  TIM1_Cmd(ENABLE);
-  TIM1->CR1 |= TIM1_CR1_CEN;
-
-  GPIO_WriteHigh(GPIOC, GPIO_PIN_5); // for debug
-
-  while (TIM1->CR1 & TIM1_CR1_CEN)
-  {
-#if 0 // for debug
-    printf("%2x %2x %d %d\r\n",
-      TIM1->CNTRH, TIM1->CNTRL,
-      TIM1->CR1 & TIM1_CR1_CEN,
-      TIM1->SR1 & TIM1_SR1_UIF);
-    for (uint32_t i=0; i<1000000L; i++) {}
-#endif
-  }
-
-  GPIO_WriteLow(GPIOC, GPIO_PIN_5); // for debug
 }
 
 /**

@@ -8,23 +8,23 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_MAIN/include",
-                "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_MAIN/src",
+                "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_ASM/include",
+                "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_ASM/src",
                 "/Users/numeru55/.platformio/packages/framework-ststm8spl/Libraries/STM8S_StdPeriph_Driver/inc",
                 ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_MAIN/include",
-                    "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_MAIN/src",
+                    "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_ASM/include",
+                    "/Users/numeru55/Documents/GitHub/NUCLEO/8S208RB/pio/my_ASM/src",
                     "/Users/numeru55/.platformio/packages/framework-ststm8spl/Libraries/STM8S_StdPeriph_Driver/inc",
                     ""
                 ]
             },
             "defines": [
                 "F_CPU=16000000L",
-                "PLATFORMIO=60110",
+                "PLATFORMIO=60111",
                 "STM8S_NUCLEO_208RB",
                 "STM8S208",
                 "USE_STDPERIPH_DRIVER",
