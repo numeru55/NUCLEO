@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "stm8s_tim1.h": "c",
-        "stm8s_uart1.h": "c"
-    }
-}

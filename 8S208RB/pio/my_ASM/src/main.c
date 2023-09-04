@@ -26,21 +26,27 @@ void main(void)
 
   GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST);
 
-  __IO uint8_t data=0;
+  __IO uint8_t data1=1;
+  __IO uint8_t data2=2;
 
   while (1)
   {
     printf("Hello STM8S\n");
     MY_DELAY;
     disableInterrupts();
-    (void) data;
+    (void) data1;
+    (void) data2;
     __asm
-        inc (1, sp)
-        ;ret // 不要だった
+        push a  // (#1,SP)=A, (#2,SP)=data1, (#3,SP)=data2
+        pushw x // (#1,SP),(#2,SP),(#3,SP)=A and X (#4,SP)=data1, (#5,SP)=data2
+        inc (#5, sp)
+        popw x
+        pop a
     __endasm;
     enableInterrupts();
     //disableInterrupts();
-    printf("data %d\n", data);
+    printf("data1 %d\n", data1);
+    printf("data2 %d\n", data2);
     MY_DELAY;
   }
 }
