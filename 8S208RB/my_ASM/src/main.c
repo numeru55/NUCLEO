@@ -26,8 +26,8 @@ void main(void)
 
   GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST);
 
-  __IO uint8_t data1=1;
-  __IO uint8_t data2=2;
+  __IO uint16_t data1=0x1234;
+  __IO uint16_t data2=0;
 
   while (1)
   {
@@ -37,16 +37,16 @@ void main(void)
     (void) data1;
     (void) data2;
     __asm
-        push a  // (#1,SP)=A, (#2,SP)=data1, (#3,SP)=data2
-        pushw x // (#1,SP),(#2,SP),(#3,SP)=A and X (#4,SP)=data1, (#5,SP)=data2
-        inc (#5, sp)
+        pushw x // (#1, sp) <-x (#3, sp) <- data1
+        ldw x, (#3, sp) // x <- data1
+        incw x
+        ldw (#3, sp), x
         popw x
-        pop a
     __endasm;
     enableInterrupts();
     //disableInterrupts();
-    printf("data1 %d\n", data1);
-    printf("data2 %d\n", data2);
+    printf("data1 %x\n", data1);
+    printf("data2 %x\n", data2);
     MY_DELAY;
   }
 }
