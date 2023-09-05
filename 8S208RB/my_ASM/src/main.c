@@ -30,58 +30,26 @@ void main(void)
 
   while (1)
   {
-    printf("Hello STM8S\n");
-    MY_DELAY;
+    volatile unsigned char *my_odr = &GPIOC->ODR;
+    __IO uint16_t odr_address = (uint16_t)my_odr;
+    __IO uint8_t pin_number = GPIO_PIN_5;
 
-    //u32 odr_address=(u32)&GPIOC->ODR;
-    volatile unsigned char *my_odr;
-    my_odr=&GPIOC->ODR;
-
-  // __IO uint8_t pin_number=1<<5;
-
-    //printf("odr_address %x\n", odr_address);
-    //printf("pin_number %x\n", pin_number);
-    printf("odr_address %x\n", &GPIOC->ODR);
-    printf("my_odr %x\n", my_odr);
-    MY_DELAY;
-
-    uint16_t d=(uint16_t)my_odr;
-    //uint16_t d=(uint16_t)(volatile unsigned char *)&GPIO->ODR;
-    #if 0
     disableInterrupts();
-    (void) my_odr; // to 1st of stack
-    (void) d;  // to 2nd of stack
+    (void)odr_address; // to 1st of stack
+    (void)pin_number;  // to 2nd of stack
     __asm
-        pushw x // sp = [1]x, [3]d, [5]&GPIO->ODR
-        ldw x, (#5, sp) // x <- odr_address
-        ldw (#3, sp),x
-        popw x
+      push a
+      pushw x // sp = [1]x [3]a [4]odr_address [6]pin_number
+      ldw x, (#4, sp) // x <- odr_address
+      ld a, (x) // a <- [odr_address]
+      xor a, (#6, sp) // a <- a xor pin_number
+      ld (x), a // [odr_address] <- a
+      popw x
+      pop a
     __endasm;
     enableInterrupts();
-    #endif
 
-    printf("d %x\n", d);
     MY_DELAY;
-
-#if 0
-    disableInterrupts();
-    (void) odr_address; // to 1st of stack
-    (void) pin_number;  // to 2nd of stack
-    __asm
-        pushw x // sp = [1]x, [3]odr_address, [5]pin_number
-        push a // sp = [1]a, [2]x, [4]odr_address, [6]pin_number
-        ldw x, (#4, sp) // x <- odr_address
-        ld a, (x) // a <- [odr]
-        xor a, (#6, sp)
-        ld (x), a
-        pop a
-        popw x
-    __endasm;
-    enableInterrupts();
-    MY_DELAY;
-#endif
-
-
   }
 }
 
