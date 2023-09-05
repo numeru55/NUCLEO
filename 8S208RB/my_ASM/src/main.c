@@ -24,30 +24,64 @@ void main(void)
       UART1_SYNCMODE_CLOCK_DISABLE,
       UART1_MODE_TXRX_ENABLE);
 
-  GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST);
+  GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST); // for PC5 LED H:ON, L:OFF
 
-  __IO uint16_t data1=0x1234;
-  __IO uint16_t data2=0;
+  GPIO_WriteLow(GPIOC, GPIO_PIN_5);
 
   while (1)
   {
     printf("Hello STM8S\n");
     MY_DELAY;
+
+    //u32 odr_address=(u32)&GPIOC->ODR;
+    volatile unsigned char *my_odr;
+    my_odr=&GPIOC->ODR;
+
+  // __IO uint8_t pin_number=1<<5;
+
+    //printf("odr_address %x\n", odr_address);
+    //printf("pin_number %x\n", pin_number);
+    printf("odr_address %x\n", &GPIOC->ODR);
+    printf("my_odr %x\n", my_odr);
+    MY_DELAY;
+
+    uint16_t d=(uint16_t)my_odr;
+    //uint16_t d=(uint16_t)(volatile unsigned char *)&GPIO->ODR;
+    #if 0
     disableInterrupts();
-    (void) data1;
-    (void) data2;
+    (void) my_odr; // to 1st of stack
+    (void) d;  // to 2nd of stack
     __asm
-        pushw x // (#1, sp) <-x (#3, sp) <- data1
-        ldw x, (#3, sp) // x <- data1
-        incw x
-        ldw (#3, sp), x
+        pushw x // sp = [1]x, [3]d, [5]&GPIO->ODR
+        ldw x, (#5, sp) // x <- odr_address
+        ldw (#3, sp),x
         popw x
     __endasm;
     enableInterrupts();
-    //disableInterrupts();
-    printf("data1 %x\n", data1);
-    printf("data2 %x\n", data2);
+    #endif
+
+    printf("d %x\n", d);
     MY_DELAY;
+
+#if 0
+    disableInterrupts();
+    (void) odr_address; // to 1st of stack
+    (void) pin_number;  // to 2nd of stack
+    __asm
+        pushw x // sp = [1]x, [3]odr_address, [5]pin_number
+        push a // sp = [1]a, [2]x, [4]odr_address, [6]pin_number
+        ldw x, (#4, sp) // x <- odr_address
+        ld a, (x) // a <- [odr]
+        xor a, (#6, sp)
+        ld (x), a
+        pop a
+        popw x
+    __endasm;
+    enableInterrupts();
+    MY_DELAY;
+#endif
+
+
   }
 }
 
