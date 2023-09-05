@@ -124,3 +124,15 @@ https://embedded-lab.com/blog/continuing-stm8-microcontroller-expedition/5/
 CH1Nに出すためにはオプションバイトの設定が必要だと
 
 http://stm8sdatasheet.web.fc2.com/STVD-project06-TIMER-PWM/STM8S-TIMER-PWM.html
+
+# ペリフェラルのレジスターのアドレス
+
+`uint32_t odr_address=(uint32_t)&GPIOC->ODR;` のような書き方が許されない。sdccの制約のようだ。
+
+```c:main.c（抜粋）
+    volatile unsigned char *my_odr;
+    my_odr=&GPIOC->ODR;
+    uint16_t d=(uint16_t)my_odr;
+    printf("d %x\n", d);
+```
+これで変数 d に `GPIOC->ODR` のアドレス 0x500a が入る。
