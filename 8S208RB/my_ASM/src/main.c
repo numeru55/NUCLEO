@@ -33,6 +33,8 @@ void main(void)
     volatile unsigned char *my_odr = &GPIOC->ODR;
     __IO uint16_t odr_address = (uint16_t)my_odr;
     __IO uint8_t pin_number = GPIO_PIN_5;
+    
+    //printf("1st pin_number = %x\n", pin_number);
 
     disableInterrupts();
     (void)odr_address; // to 1st of stack
@@ -41,13 +43,22 @@ void main(void)
       push a
       pushw x // sp = [1]x [3]a [4]odr_address [6]pin_number
       ldw x, (#4, sp) // x <- odr_address
-      ld a, (x) // a <- [odr_address]
-      xor a, (#6, sp) // a <- a xor pin_number
-      ld (x), a // [odr_address] <- a
+      ld a, (x) // ODRから値をとってきて OR をとって点灯させる
+      or a, (#6, sp) // 
+      ld (x), a // ODRへ書き込み
+      neg (#6, sp) // pin_numberを反転させておく 消灯準備
+      dec (#6, sp)
+      ld a, (x) // もう一度ODRから値をとって消灯させる
+      and a, (#6, sp) // 
+      neg (#6, sp) // pin_numberを反転させておく 点灯準備
+      dec (#6, sp)
+      ld (x), a // ODRへ書き込み
       popw x
       pop a
     __endasm;
     enableInterrupts();
+
+    //printf("2nd pin_number = %x\n", pin_number);
 
     MY_DELAY;
   }
