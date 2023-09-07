@@ -42,17 +42,21 @@ void main(void)
     __asm
       push a
       pushw x // sp = [1]x [3]a [4]odr_address [6]pin_number
-      ldw x, (#4, sp) // x <- odr_address
-      ld a, (x) // ODRから値をとってきて OR をとって点灯させる
-      or a, (#6, sp) // 
-      ld (x), a // ODRへ書き込み
-      neg (#6, sp) // pin_numberを反転させておく 消灯準備
+      ldw x, (#4, sp) // let x <- odr_address
+      ld a, (x) // let a <- [odr]
+      or a, (#6, sp) // a <- [odr] or pin_number
+      ld (x), a // [odr] <- [odr] or pin_number
+      pushw y  // blink loop
+      ldw y, #0xffff
+      99999$:
+        decw y
+        jrne 99999$ // JR not equal 0
+      popw y // loop end
+      neg (#6, sp) // pin_number <- not(pin_number)
       dec (#6, sp)
-      ld a, (x) // もう一度ODRから値をとって消灯させる
-      and a, (#6, sp) // 
-      neg (#6, sp) // pin_numberを反転させておく 点灯準備
-      dec (#6, sp)
-      ld (x), a // ODRへ書き込み
+      ld a, (x) // a <- [odr]
+      and a, (#6, sp) 
+      ld (x), a // [odr] = [odr] and not(pin_number)
       popw x
       pop a
     __endasm;
