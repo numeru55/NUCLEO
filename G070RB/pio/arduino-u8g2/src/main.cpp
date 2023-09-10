@@ -12,7 +12,7 @@ void loop(void)
 {
   u8x8.setCursor(0, 0);
   // u8x8.println("Hello World!");
-  u8x8.setFont(u8x8_font_8x13B_1x2_f);
+  u8x8.setFont(u8x8_font_8x13_1x2_f);
   u8x8.println("Hello World!");
 
   delay(1000);
