@@ -95,6 +95,7 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   u8g_InitComFn(&u8g, &u8g_dev_ssd1306_128x32_i2c, u8g_com_hw_i2c_fn);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -104,20 +105,44 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		u8g_FirstPage(&u8g);
-		do {
-			// font select from
-			// https://github.com/olikraus/u8glib/wiki/fontsize
-			//u8g_SetFont(&u8g, u8g_font_10x20);
-			u8g_SetFont(&u8g, u8g_font_9x15);
-			u8g_DrawStr(&u8g, 2, 12, "Boot Nucleo");
-			//u8g_DrawBox(&u8g, 30, 30, 35, 35);
+    u8g_FirstPage(&u8g);
+    do
+    {
+      // font select from
+      // https://github.com/olikraus/u8glib/wiki/fontsize
+      // u8g_SetFont(&u8g, u8g_font_10x20);
+      u8g_SetFont(&u8g, u8g_font_9x15);
+      u8g_DrawStr(&u8g, 2, 12, "Boot Nucleo");
+    } while (u8g_NextPage(&u8g));
+    u8g_Delay(10);
+    HAL_Delay(2000);
 
-      u8g_DrawFrame(&u8g, 0,16,14,14);
-      u8g_DrawBox(&u8g, 16,16,14,14);
+    u8g_FirstPage(&u8g);
+    do
+    {
+      u8g_DrawFrame(&u8g, 0, 16, 14, 14);
+      u8g_DrawBox(&u8g, 16, 16, 14, 14);
+    } while (u8g_NextPage(&u8g));
+    u8g_Delay(10);
 
-		} while (u8g_NextPage(&u8g));
-		u8g_Delay(10);
+    HAL_Delay(2000);
+
+    u8g_FirstPage(&u8g);
+    do
+    {
+      // font select from
+      // https://github.com/olikraus/u8glib/wiki/fontsize
+      // u8g_SetFont(&u8g, u8g_font_10x20);
+      u8g_SetFont(&u8g, u8g_font_9x15);
+      u8g_DrawStr(&u8g, 2, 12, "next page");
+      // u8g_DrawBox(&u8g, 30, 30, 35, 35);
+
+      // u8g_DrawFrame(&u8g, 0,16,14,14);
+      // u8g_DrawBox(&u8g, 16,16,14,14);
+
+    } while (u8g_NextPage(&u8g));
+    u8g_Delay(10);
+    HAL_Delay(2000);
   }
   /* USER CODE END 3 */
 }
