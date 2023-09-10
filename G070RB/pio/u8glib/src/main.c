@@ -110,8 +110,12 @@ int main(void)
 			// https://github.com/olikraus/u8glib/wiki/fontsize
 			//u8g_SetFont(&u8g, u8g_font_10x20);
 			u8g_SetFont(&u8g, u8g_font_9x15);
-			u8g_DrawStr(&u8g, 2, 12, "Hello!");
-			u8g_DrawBox(&u8g, 30, 30, 35, 35);
+			u8g_DrawStr(&u8g, 2, 12, "Boot Nucleo");
+			//u8g_DrawBox(&u8g, 30, 30, 35, 35);
+
+      u8g_DrawFrame(&u8g, 0,16,14,14);
+      u8g_DrawBox(&u8g, 16,16,14,14);
+
 		} while (u8g_NextPage(&u8g));
 		u8g_Delay(10);
   }
