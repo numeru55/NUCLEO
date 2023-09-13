@@ -97,26 +97,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	OLED_Init(&hi2c1);
 
-	// text demo
-
-	OLED_clear(); // and set cursor to 0,0
-	//      12345678901234
-	printf("Boot nucleo\n");
-	printf("  G070RB");
-
-	HAL_Delay(3000);
-
-	// start bar data demo
-
-	OLED_clear(); // and set cursor to 0,0
-	OLED_set_cursor(0, 2);
-	printf(" BAR demo");
-
-	uint8_t my_data_8[128];
-	uint8_t my_data_0[128];
-
-	uint8_t c=0;
-
 	/* USER CODE END 2 */
 
   /* Infinite loop */
@@ -127,24 +107,53 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  	 c=(c+1) & 0xff;
+		// text demo
 
-		for (uint16_t i=0; i<128; i++) {
-			if (i<c) {
-				my_data_0[i] = 0b00111111;
-				my_data_8[i] = 0b11111100;
+		OLED_clear(); // and set cursor to 0,0
+		//      12345678901234
+		printf("Boot nucleo\n");
+		printf("  G070RB");
 
-			} else {
-				my_data_0[i] = 0;
-				my_data_8[i] = 0;
+		HAL_Delay(3000);
+
+		// start bar data demo
+
+		OLED_clear(); // and set cursor to 0,0
+		OLED_set_cursor(0, 2);
+		printf(" BAR demo");
+
+		uint8_t my_data_8[128];
+		uint8_t my_data_0[128];
+
+		for (uint8_t t=0; t<3; t++) {
+
+			for (uint8_t c=0; c<128; c++) {
+
+				// prepare bar
+
+				for (uint16_t i=0; i<128; i++) {
+					if (i<c) {
+						my_data_0[i] = 0b00111111;
+						my_data_8[i] = 0b11111100;
+
+					} else {
+						my_data_0[i] = 0;
+						my_data_8[i] = 0;
+					}
+				}
+
+				// transfer data
+
+				OLED_set_cursor(0, 0);
+				OLED_put_len((uint8_t *)&my_data_8, 128);
+
+				OLED_set_cursor(0, 1);
+				OLED_put_len((uint8_t *)&my_data_0, 128);
+
 			}
 		}
 
-		OLED_set_cursor(0, 0);
-		OLED_put_len(&my_data_8, 128);
-
-		OLED_set_cursor(0, 1);
-		OLED_put_len(&my_data_0, 128);
+		HAL_Delay(2000);
 
   }
   /* USER CODE END 3 */
