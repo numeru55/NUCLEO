@@ -15,7 +15,7 @@
 #ifndef _SSD1306_H
 #define _SSD1306_H
 
-#include "stm32f4xx_hal.h"
+#include "stm32g0xx_hal.h"
 #include "fonts.h"
 
 // I2c address
@@ -30,7 +30,7 @@
 
 // SSD1306 LCD height in pixels
 #ifndef SSD1306_HEIGHT
-#define SSD1306_HEIGHT          64
+#define SSD1306_HEIGHT          32
 #endif // SSD1306_HEIGHT
 
 #ifndef SSD1306_COM_LR_REMAP
@@ -38,7 +38,7 @@
 #endif // SSD1306_COM_LR_REMAP
 
 #ifndef SSD1306_COM_ALTERNATIVE_PIN_CONFIG
-#define SSD1306_COM_ALTERNATIVE_PIN_CONFIG    1
+#define SSD1306_COM_ALTERNATIVE_PIN_CONFIG    0
 #endif // SSD1306_COM_ALTERNATIVE_PIN_CONFIG
 
 
