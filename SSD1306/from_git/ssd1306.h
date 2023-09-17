@@ -30,7 +30,7 @@
 
 // SSD1306 LCD height in pixels
 #ifndef SSD1306_HEIGHT
-#define SSD1306_HEIGHT          32
+#define SSD1306_HEIGHT          32  // edit
 #endif // SSD1306_HEIGHT
 
 #ifndef SSD1306_COM_LR_REMAP
@@ -38,7 +38,7 @@
 #endif // SSD1306_COM_LR_REMAP
 
 #ifndef SSD1306_COM_ALTERNATIVE_PIN_CONFIG
-#define SSD1306_COM_ALTERNATIVE_PIN_CONFIG    0
+#define SSD1306_COM_ALTERNATIVE_PIN_CONFIG    0 // edit
 #endif // SSD1306_COM_ALTERNATIVE_PIN_CONFIG
 
 
