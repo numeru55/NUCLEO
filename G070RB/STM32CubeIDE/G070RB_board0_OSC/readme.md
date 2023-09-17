@@ -8,6 +8,30 @@ AIN0 = PA0 の波形を見る
 trigger: Rise or Falling
 sampling rate 実験したら 320k samples / sec が限界だった。
 
+# ボード配線メモ
+
+```
+                            PB8 D15 10 = SCL -->> to OLED 128x32
+                            PB9 D14 9  = SDA -->> to OLED 128x32
+                            AVD AVD 8
+                            GND GND 7
+          1 NC              PA5 D13 6
+          2 IOREF           PA6 D12 5
+          3 NRST            PA7 D11 4 -->> TIM17 test PWM
+          4 3V3             PB0 D10 3
+          5 5V               PC7 D9 2
+          6 GND              PA9 D8 1
+          7 GND
+          8 VIN              PA8 D7 8
+                            PB14 D6 7
+read -->> 1 A0 PA0           PB4 D5 6
+          2 A1 PA1           PB5 D4 5 -->> button
+          3 A2 PA4           PB3 D3 4 -->> button
+          4 A3 PB1          PA10 D2 3 -->> button
+          5 A4 PB11          PC4 D1 2
+          6 A5 PB12          PC5 D0 1
+```
+
 # SW操作
 
 上から見て PA10 PB3 PB5 の順番 CPU内プルアップ必要
