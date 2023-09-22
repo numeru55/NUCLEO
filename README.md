@@ -1,3 +1,10 @@
+# CPU SPEC
+
+- L452RE 80MHz 512kB Flash 160kB RAM
+- G0B1RE 64MHz 512kB Flash 144kB RAM
+- G070RB 64MHz 128kB Flash 36kB RAM
+- G031F8 64MHz 64kB Flash 8kB RAM
+
 # タイマーの解説
 
 難しいけど
