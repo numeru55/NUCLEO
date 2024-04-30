@@ -1,3 +1,7 @@
+UM2324
+
+https://www.st.com/resource/en/user_manual/um2324-stm32-nucleo64-boards-mb1360-stmicroelectronics.pdf
+
 ```                  
                   PB8 D15 10 = SCL SPI2_SCK I2S2_CK
                   PB9 D14 9  = SDA SPI2_NSS I2S2_WS
