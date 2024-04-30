@@ -2,6 +2,8 @@ UM2206
 
 https://okutsu-my.sharepoint.com/:b:/g/personal/yasunori_okutsu_onmicrosoft_com/ERyetlBnn2xCi3MfIlmr8PIBL1jTUXg9z4fFG63RqATD-Q?e=tLFkNi
 
+https://www.st.com/resource/en/user_manual/um2206-stm32-nucleo64p-boards-mb1319-stmicroelectronics.pdf
+
 onboard osc: no
 PA1 MCO from STLINK
 User button PC13 close:H open:L onboard pull-down
@@ -12,6 +14,8 @@ User LED PB13 on:H off:L
 
 
 ```
+Arduino left
+
 1 NC
 2 IOREF
 3 NRST
@@ -28,6 +32,8 @@ User LED PB13 on:H off:L
 5 PC1 A4 I2C3_SDA
 6 PC0 A5 I2C3_SCL
 
+
+Arduino right
 
 10 PB8(D15) I2C1_SCL   SAI1_MCLK_A
  9 PB7(D14) I2C1_SDA   SAI1_FS_A
@@ -65,7 +71,7 @@ I2C1 SDA  PB7    5  6 PC5
           PC7   23 24 PA7
           PB10  25 26 PA6
           PA15  27 28 PA5
-          PB5   29 30 PA4
+          PB5   29 30 PA4      DAC1_OUT1
           PB3   31 32 --- AGND
           PA12  33 34 PC4
           PA9   35 36 PA3
