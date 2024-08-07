@@ -17,6 +17,44 @@ https://www.st.com/resource/ja/application_note/an4776-generalpurpose-timer-cook
 
 https://qiita.com/FlechaMaker/items/de9c663d1b394e5a2862
 
+# C レジスターに直接アクセスする
+
+```c
+  /* USER CODE BEGIN 2 */
+
+  TIM6->SR = (TIM6->SR) & 0xfffffffe; // clear UIF
+  HAL_TIM_Base_Start(&htim6);
+
+  HAL_Delay(100);
+  uint32_t f0=(TIM6->SR) & 1; // UIF
+  uint32_t c0=TIM6->CNT;
+
+  HAL_Delay(1000); // TIM6 finished.
+
+  HAL_Delay(50);
+  uint32_t f1=(TIM6->SR) & 1; // UIF
+  uint32_t c1=TIM6->CNT;
+
+  /* USER CODE END 2 */
+```
+
+```c
+  uint16_t a=   TIM14->CCR1;
+
+  // 中略
+
+  while (1)
+  {
+	  if ( HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_5) == HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_9)) {
+		  TIM14->CCR1 = 80;
+		  HAL_Delay(1000);
+
+	  } else {
+		  TIM14->CCR1 = 10;
+		  HAL_Delay(1000);
+	  }
+```
+
 # 雑多メモ
 
 ```main.c
