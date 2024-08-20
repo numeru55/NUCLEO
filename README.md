@@ -1,9 +1,13 @@
 # CPU SPEC
 
 - L452RE 80MHz 512kB Flash 160kB RAM  1 - Op-Amp 1 - DAC
+- G431RB 170MHz 128kB Flash 22kB RAM 3-Op-Amp 4-DAC
 - G0B1RE 64MHz 512kB Flash 144kB RAM  3 - Comparators 1- DAC
 - G070RB 64MHz 128kB Flash 36kB RAM
 - G031F8 64MHz 64kB Flash 8kB RAM
+- F303K8 72MHz 64kB Flash 12kB RAM 4-PGA 2-DAC
+- L432KC 80MHz 256kB Flash 64kB RAM 1-Op-Amp 2-DAC
+- 
 
 # タイマーの解説
 
